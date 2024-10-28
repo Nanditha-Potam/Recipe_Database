@@ -77,3 +77,35 @@ CREATE OR REPLACE PACKAGE BODY RatingManagement AS
 
 END RatingManagement;
 /
+
+--case 1: Adding a New Rating:
+BEGIN
+    RatingManagement.Add_Rating(p_user_id => 1, p_recipe_id => 2, p_rating => 5, p_review => 'Absolutely loved it!');
+    COMMIT;  -- Commit the transaction
+END;
+/
+--case 2:Updating an Existing Rating:
+BEGIN
+    RatingManagement.Update_Rating(p_user_id => 23, p_recipe_id => 2, p_rating => 5, p_review => 'This recipe is amazing!');
+    COMMIT;  -- Commit the transaction
+END;
+/
+
+--case 3:Deleting the existing Rating:
+BEGIN
+    RatingManagement.Delete_Rating(p_review_id => 2);  -- Assuming review_id 2 exists
+    COMMIT;  -- Commit the transaction
+END;
+/
+--case 4:Attempting to Update a Non-Existing Rating:
+BEGIN
+    RatingManagement.Update_Rating(p_user_id => 99, p_recipe_id => 99, p_rating => 4, p_review => 'This rating does not exist.');
+    COMMIT;  -- Commit the transaction
+END;
+/
+--case 5:Attempting to Delete a Non-Existing Rating:
+BEGIN
+    RatingManagement.Delete_Rating(p_review_id => 999);  -- Assuming review_id 999 does not exist
+    COMMIT;  -- Commit the transaction
+END;
+/
